@@ -175,10 +175,41 @@ section.section.section-product: .wrapper
                 .request-pane-header(ng-bind="'Bevestig uw ' + $ctrl.recordTypes[invalidCriteria.record_type_key].name")
                 .request-pane-body: form(ng-submit="$ctrl.submitStepCriteria(invalidCriteria)").form.row
                     .form-group.col.col-lg-12
-                        input(
+                        ui-control-checkbox(
+                            ng-if="invalidCriteria.control_type == 'ui_control_checkbox' && invalidCriteria.record_type_key == 'children'"
                             ng-model="invalidCriteria.input_value"
-                            type="{string:'text', number:'number'}[$ctrl.recordTypes[invalidCriteria.record_type_key].type]" 
-                            placeholder="Uw {{ invalidCriteria.record_type_name }}").form-control
+                            data-id="criterion_{{ invalidCriteria.id }}"
+                            data-label="I do have kids")
+                        ui-control-checkbox(
+                            ng-if="invalidCriteria.control_type == 'ui_control_checkbox' && (invalidCriteria.record_type_key == 'kindpakket_eligible' || invalidCriteria.record_type_key =='kindpakket_2018_eligible')"
+                            ng-model="invalidCriteria.input_value"
+                            data-id="criterion_{{ invalidCriteria.id }}"
+                            data-label="Yes, i am eligible for kindpakket fund")
+                        ui-control-step(
+                            ng-if="invalidCriteria.control_type == 'ui_control_step'"
+                            ng-model="invalidCriteria.input_value"
+                            data-min="0"
+                            data-max="32"
+                            data-id="criterion_{{ invalidCriteria.id }}")
+                        ui-control-date(
+                            ng-if="invalidCriteria.control_type == 'ui_control_date'"
+                            ng-model="invalidCriteria.input_value"
+                            data-id="criterion_{{ invalidCriteria.id }}")
+                        ui-control-number(
+                            ng-if="invalidCriteria.control_type == 'ui_control_number'"
+                            ng-model="invalidCriteria.input_value"
+                            data-id="criterion_{{ invalidCriteria.id }}"
+                            data-placeholder="Uw {{ invalidCriteria.record_type_name }}")
+                        ui-control-text(
+                            ng-if="invalidCriteria.control_type == 'ui_control_text'"
+                            ng-model="invalidCriteria.input_value"
+                            data-id="criterion_{{ invalidCriteria.id }}"
+                            data-placeholder="Uw {{ invalidCriteria.record_type_name }}")
+                        ui-control-currency(
+                            ng-if="invalidCriteria.control_type == 'ui_control_currency'"
+                            ng-model="invalidCriteria.input_value"
+                            data-id="criterion_{{ invalidCriteria.id }}"
+                            data-placeholder="Uw {{ invalidCriteria.record_type_name }}")
                         .form-error(ng-repeat="error in invalidCriteria.errors.value" ng-bind="error")
                         
                     .form-group.col.col-lg-12: .request-pane-info

@@ -141,9 +141,45 @@ let ProductRequestComponent = function(
             criteria.files = [];
             return criteria;
         });
-        $ctrl.netCriteria = $ctrl.invalidCriteria.filter(criterion => criterion.record_type_key == $ctrl.specialKey)[0] || false;
-        $ctrl.invalidCriteria = $ctrl.invalidCriteria.filter(criterion => criterion.record_type_key != $ctrl.specialKey);
-        $ctrl.isEligible = ($ctrl.invalidCriteria.length == 0 && !$ctrl.netCriteria);
+
+        $ctrl.netCriteria = $ctrl.invalidCriteria.filter(
+            criterion => criterion.record_type_key == $ctrl.specialKey
+        )[0] || false;
+
+        $ctrl.invalidCriteria = $ctrl.invalidCriteria.filter(
+            criterion => criterion.record_type_key != $ctrl.specialKey
+        ).map(criterion => {
+            let control_type = {
+                // checkboxes
+                'children': 'ui_control_checkbox',
+                'kindpakket_eligible': 'ui_control_checkbox',
+                'kindpakket_2018_eligible': 'ui_control_checkbox',
+                // dates
+                'birth_date': 'ui_control_date',
+                // stepper
+                'children_nth': 'ui_control_step',
+                // numbers
+                'tax_id': 'ui_control_number',
+                'bsn': 'ui_control_number',
+                // currency
+                'net_worth': 'ui_control_currency',
+                'base_salary': 'ui_control_currency',
+            }[criterion.record_type_key] || 'ui_control_text';
+
+            return Object.assign(criterion, {
+                control_type: control_type,
+                input_value: {
+                    ui_control_checkbox: false,
+                    ui_control_date: moment().format('DD-MM-YYYY'),
+                    ui_control_step: 0,
+                    ui_control_number: undefined,
+                    ui_control_currency: undefined,
+                }[control_type]
+            });
+        });
+
+        $ctrl.isEligible = (
+            $ctrl.invalidCriteria.length == 0 && !$ctrl.netCriteria);
     };
 
     $ctrl.buildSteps = () => {
