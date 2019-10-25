@@ -351,6 +351,12 @@ module.exports = ['$stateProvider', '$locationProvider', 'appConfigs', function(
     });
 
     $stateProvider.state({
+        name: 'accessibility',
+        url: '/accessibility',
+        component: 'accessibilityComponent'
+    });
+
+    $stateProvider.state({
         name: "auth-link",
         url: "/auth-link?token",
         controller: [
