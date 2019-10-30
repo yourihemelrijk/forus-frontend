@@ -1,0 +1,13 @@
+.section {
+    &.section-accessibility {
+        .section-title {
+            margin: 0 0 20px;
+            padding: 0;
+        }
+    }
+}
+.block {
+    &.block-accessibility {
+        max-width: 66%;
+    }
+}
