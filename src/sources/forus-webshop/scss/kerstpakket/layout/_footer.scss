@@ -6,6 +6,21 @@
             background-size: cover; 
             margin: 0px;
             min-height: 300px;
+            min-width: 100px;
+        }
+        .block-copyrights {
+            .links {
+                clear: both;
+                text-align:center;
+                margin: 0 auto;
+            }
+            .col.col-md-4 {
+                clear: both;
+                float:left;
+                text-align:center; 
+                min-width: 100%;
+                padding: 0;
+            }
         }
     }
 }
