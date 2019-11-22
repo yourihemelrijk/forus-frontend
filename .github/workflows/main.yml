@@ -17,6 +17,6 @@ jobs:
     - name: Install gulp
       run: npm install gulp
     - name: Install dependencies
-      run: npm install
+      run: cd src && npm install
     - name: Build
-      run: gulp compile
+      run: cd src && gulp compile
